@@ -1,0 +1,72 @@
+\documentclass[fontsize=11pt]{article}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{hyperref}
+
+\title{CSC111 Project Proposal: Am I Infected?}
+\author{Aina Merchant, Avni Agrawal, Paarth Arya, Reeya Bansal}
+\date{Tuesday, March 16, 2021}
+
+\begin{document}
+\maketitle
+
+\section*{Problem Description and Research Question}
+Delays in treatment is a pressing problem in today's healthcare system. This leads to a two issues, the first one being that patients who need immediate medical care do not receive it in time, and the second that people often get discouraged to visit the hospital even when they need to. To address this issue and help patients and doctors understand the severity of a situation quickly, we wish to design a model that helps diagnose potential diseases that patients could potentially have based on a number of symptoms they exhibit along with the probability of having each of those diseases. This model works by using real-world data collected by medical professionals that lists the symptoms of various diseases. By letting a model assist in the process of diagnosis, we can speed up the system for doctors who can focus their attention on patients who have more severe ailments and also help patients realise how urgently they need to visit the hospital.
+The question we hope to explore is:
+\textbf {Can we predict what illness or disease one has based on the symptoms they are exhibiting?} \\
+\\
+\textbf {Disclaimer:} We are in no way saying that the model should be allowed to make all the diagnoses or that it is 100\% accurate. It is just a tool for assistance that needs to constantly be updated with real-world data and serves to provide a general idea to both doctors and patients.
+
+\section*{Computational Plan}
+
+The dataset represents diseases and their common symptoms in a tabular form along with data for symptom severity, symptom descriptions and symptom precautions. This project will model the dataset into a tree which has all internal nodes as symptoms and the leaves as the diseases associated with a chain of symptoms. We will call this tree DiseaseTree.
+As a source of data for diseases and their associated symptoms, the Kaggle dataset on Disease Symptom Prediction will be used: \href{https://www.kaggle.com/datasets/itachi9604/disease-symptom-description-dataset}{Disease-Symptom Dataset}
+To model the precautions based on health factors and test the software, we will use the 
+\href{https://figshare.com/articles/dataset/Data_-_development_of_hormonal_levels_over_time_from_Is_paternal_oxytocin_an_oxymoron_oxytocin_vasopressin_testosterone_oestradiol_and_cortisol_in_emerging_fatherhood/20025810}{Health Dataset} \\
+
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+Disease	Symptom\_1 & Symptom\_2 & Symptom\_3 \\ 
+Fungal infection & itching & skin\_rash \\ 
+Jaundice & vomiting & fatigue \\ 
+Typhoid	& chills & vomiting \\
+ \hline
+\end{tabular}
+\end{center}
+
+The project will be an interactive software that accepts the user’s health data and the symptoms being experienced. The project will also model the person’s health data and possible precautions into a graph. This graph will use a modified topology that contains internal and external nodes.  The internal nodes will contain the data for a person’s health (example: nutrient levels, hormone levels, sleep cycle, etc.) and the external nodes will contain the precautions. We will call this graph PrecautionGraph. \\
+\\
+The project will aim at making two kinds of computations:
+
+\begin{enumerate}
+\item[1.] Based on the symptoms the person is experiencing, the project will calculate the likelihood of a disease in percentage. This will be done using the DiseaseTree. We will go down the tree based on an algorithm. Since it is possible that a person may be infected with a disease but not show all the symptoms related to it, we will recurse through certain subtrees even when symptoms do not match. We will keep track of all this data and finally calculate the percentage of that person being infected with different diseases and return the diseases a person is most prone to. We could choose to do this graphically.
+
+\item[2.] Using the values calculated above, the project will calculate possible precautions for the diseases the user is most prone to. Based on the likeliness of the precautions to work with a particular health factor, we will find the best suitable precautions for the person for each disease.
+\end{enumerate}
+
+The prone diseases will be returned in form of a graph along with their likelihood percentage. The precautions will be returned in text, sorted from the most important precautions to the least important precautions.
+
+We will be using the Tkinter library to make the project’s user interface. The interface is meant for the user to input their health information and symptoms they are facing. Once the prone diseases and apt precautions are calculated from the trees and graphs, we will use the user-interface to display the information and provide possible leads to take the precautions. 
+
+We may also consider using the Scrappy library to extract information from reliable websites if the user inputs symptoms or health data trends that are not already registered in the project’s tree and graph. This is to ensure that all given data is addressed by out project.
+
+
+\section*{References}
+
+$https://www.kaggle.com/datasets/itachi9604/disease-symptom-description-dataset$
+
+$https://figshare.com/articles/dataset/Data\_development\_of\_hormonal\_levels\_over\_time\_from\_Is\_paternal\_oxytocin \\
+\_an\_oxymoron\_oxytocin\_vasopressin\_testosterone\_oestradiol\_and\_cortisol\_in\_emerging\_fatherhood/20025810$
+
+$https://docs.python.org/3/library/tkinter.html$
+
+$https://www.geeksforgeeks.org/python-tkinter-tutorial/$
+
+% NOTE: LaTeX does have a built-in way of generating references automatically,
+% but it's a bit tricky to use so we STRONGLY recommend writing your references
+% manually, using a standard academic format like APA or MLA.
+% (E.g., https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/general_format.html)
+
+\end{document}
